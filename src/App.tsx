@@ -1,3 +1,5 @@
+import { Authenticator } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui-react/styles.css'
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
@@ -21,8 +23,11 @@ function App() {
     client.models.Todo.create({ content: window.prompt("Todo content") });
   }
 
-  return (
-    <main>
+  return (<Authenticator>
+    {({ signOut }) => (  
+    <main> 
+      
+                <button onClick={signOut}>Sign out</button>
       <h1>My todos</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
@@ -38,6 +43,9 @@ function App() {
         </a>
       </div>
     </main>
+        
+  )}
+  </Authenticator>
   );
 }
 
